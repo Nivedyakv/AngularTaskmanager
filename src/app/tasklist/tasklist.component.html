@@ -1,0 +1,29 @@
+<div class="app-container">
+    <div class="main">
+    <form (submit)="onSubmit()"> 
+        <label for="title"class="one">Title :</label>
+        <input type="text" id="title" name="title" [(ngModel)]="newTask.title" required>
+        
+        <label for="description" class="two">Description :</label> 
+        <input type="text" id="description" name="description" [(ngModel)]="newTask.description" required>
+        
+        <button type="submit">Add Task</button> 
+    </form>
+</div>
+    <div class="app-container_task-tiles"> 
+        <div class="app-container_task" *ngFor="let task of taskDetails; let i = index"> 
+            <h3>{{ task.title }}</h3> 
+            <p>{{ task.description }}</p> 
+           
+            <button (click)="deleteTask(i)">Delete</button>
+            <button (click)="showUpdateForm(i)">Update</button>
+            
+            <!-- Update Task Form -->
+            <form *ngIf="showUpdateFormIndex === i" (submit)="updateTask(i, { title: updatedTitle.value, description: updatedDescription.value })">
+                <input type="text" #updatedTitle required>
+                <input type="text" #updatedDescription required>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
